@@ -67,10 +67,19 @@ jobs:
         run: |
           zip --junk-paths osc_broadcaster-${{ matrix.target }} target/${{ matrix.target }}/release/osc_broadcaster
 
-      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: build-${{ matrix.target }}
+#          path: osc_broadcaster-${{ matrix.target }}.zip
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@2.1.1
         with:
-          name: build-${{ matrix.target }}
-          path: osc_broadcaster-${{ matrix.target }}.zip
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: osc_broadcaster-${{ matrix.target }}.zip
+          asset_name: osc_broadcaster-${{ matrix.target }}.zip
+          tag: ${{ github.ref }}
+          overwrite: true
 
 #jobs:
 #  build:
