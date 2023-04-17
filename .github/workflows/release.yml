@@ -13,20 +13,20 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact_name: example
-            asset_name: example-x86_64-unknown-linux-gnu
+            artifact_name: osc_broadcaster
+            asset_name: osc_broadcaster-x86_64-unknown-linux-gnu
           - os: ubuntu-latest
             target: x86_64-unknown-linux-musl
-            artifact_name: example
-            asset_name: example-x86_64-unknown-linux-musl
+            artifact_name: osc_broadcaster
+            asset_name: osc_broadcaster-x86_64-unknown-linux-musl
           - os: ubuntu-latest
             target: x86_64-pc-windows-gnu
-            artifact_name: example.exe
-            asset_name: example-x86_64-pc-windows-gnu.exe
+            artifact_name: osc_broadcaster.exe
+            asset_name: osc_broadcaster-x86_64-pc-windows-gnu.exe
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact_name: example
-            asset_name: example-x86_64-apple-darwin
+            artifact_name: osc_broadcaster
+            asset_name: osc_broadcaster-x86_64-apple-darwin
 
 
     runs-on: ${{ matrix.os }}
