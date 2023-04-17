@@ -73,48 +73,54 @@ impl BroadCaster {
     }
 
     fn handle_message(&mut self, message: &OscMessage, ip_address: IpAddr, packet: &OscPacket) {
-        if message.addr == "/server/connect" {
-            self.server_connect(ip_address);
-        } else if message.addr == "/server/disconnect" {
-            self.server_disconnect(ip_address);
-        } else {
-            println!("*** broadcast message ***");
-            self.send_message(packet);
-            println!("OSC address: {}", message.addr);
-            println!("OSC arguments: {:?}", message.args);
+        match &message.addr[..] {
+            "/server/connect" => {
+                if self.server_connect(ip_address) {
+                    println!("*** connected ***");
+                    self.print_send_addresses();
+                }
+            },
+            "/server/disconnect" => {
+                if self.server_disconnect(ip_address) {
+                    println!("*** disconnected ***");
+                    self.print_send_addresses();
+                }
+            },
+            _ => {
+                if self.send_message(packet) > 0 {
+                    println!("*** broadcast message ***");
+                    self.print_send_addresses();
+                    println!("OSC address: {}", message.addr);
+                    println!("OSC arguments: {:?}", message.args);
+                }
+            }
         }
     }
 
-    fn server_connect(&mut self, ip_address: IpAddr) {
-        let connected = self.push_send_address(ip_address.to_string());
-        if connected {
-            println!("*** connected ***");
-            self.print_send_addresses();
-        }
+    fn server_connect(&mut self, ip_address: IpAddr) -> bool {
+        self.push_send_address(ip_address.to_string())
     }
 
-    fn server_disconnect(&mut self, ip_address: IpAddr) {
-        let disconnected = self.remove_send_address(ip_address.to_string());
-        if disconnected {
-            println!("*** disconnected ***");
-            self.print_send_addresses();
-        }
+    fn server_disconnect(&mut self, ip_address: IpAddr) -> bool {
+        self.remove_send_address(ip_address.to_string())
     }
 
-    fn send_message(&self, packet: &OscPacket) {
+    fn send_message(&self, packet: &OscPacket) -> usize {
         let msg_buf = encoder::encode(&packet).unwrap();
         for address in &self.send_addresses {
             self.socket.as_ref().unwrap().send_to(&msg_buf, address).unwrap();
         }
+        self.send_addresses.len()
     }
 
-    fn send_bundle(&self, bundle: &OscBundle) {
+    fn send_bundle(&self, bundle: &OscBundle) -> usize {
         for address in &self.send_addresses {
             for packet in &bundle.content {
                 let msg_buf = encoder::encode(&packet).unwrap();
                 self.socket.as_ref().unwrap().send_to(&msg_buf, address).unwrap();
             }
         }
+        self.send_addresses.len()
     }
 
     fn push_send_address(&mut self, ip_address: String) -> bool {
