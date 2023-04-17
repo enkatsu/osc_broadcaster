@@ -2,7 +2,6 @@ extern crate rosc;
 
 use rosc::{OscPacket, encoder};
 use clap::Parser;
-use std::env;
 use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
 
@@ -35,10 +34,6 @@ impl BroadCaster {
         return Self {
             ..Default::default()
         }
-    }
-
-    fn set_listen_ip_address(&mut self, listen_ip_address: String) {
-        self.listen_ip_address = listen_ip_address;
     }
 
     fn set_listen_port(&mut self, listen_port: u16) {
