@@ -22,7 +22,7 @@ jobs:
           - target: x86_64-apple-darwin
             os: macos-latest
 
-    runs-on: $｛｛ matrix.os ｝｝
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Setup code
@@ -38,7 +38,7 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
-          target: $｛｛ matrix.target ｝｝
+          target: ${{ matrix.target }}
           override: true
 
       - name: test
@@ -50,27 +50,27 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release --target=$｛｛ matrix.target ｝｝
+          args: --release --target=${{ matrix.target }}
 
       - name: Package for linux-musl
         if: matrix.target == 'x86_64-unknown-linux-musl'
         run: |
-          zip --junk-paths osc_broadcaster-$｛｛ matrix.target ｝｝ target/$｛｛ matrix.target ｝｝/release/osc_broadcaster
+          zip --junk-paths osc_broadcaster-${{ matrix.target }} target/${{ matrix.target }}/release/osc_broadcaster
 
       - name: Package for windows
         if: matrix.target == 'x86_64-pc-windows-msvc'
         run: |
-          powershell Compress-Archive -Path target/$｛｛ matrix.target ｝｝/release/osc_broadcaster.exe -DestinationPath osc_broadcaster-$｛｛ matrix.target ｝｝.zip
+          powershell Compress-Archive -Path target/${{ matrix.target }}/release/osc_broadcaster.exe -DestinationPath osc_broadcaster-${{ matrix.target }}.zip
 
       - name: Package for macOS
         if: matrix.target == 'x86_64-apple-darwin'
         run: |
-          zip --junk-paths osc_broadcaster-$｛｛ matrix.target ｝｝ target/$｛｛ matrix.target ｝｝/release/osc_broadcaster
+          zip --junk-paths osc_broadcaster-${{ matrix.target }} target/${{ matrix.target }}/release/osc_broadcaster
 
       - uses: actions/upload-artifact@v2
         with:
-          name: build-$｛｛ matrix.target ｝｝
-          path: osc_broadcaster-$｛｛ matrix.target ｝｝.zip
+          name: build-${{ matrix.target }}
+          path: osc_broadcaster-${{ matrix.target }}.zip
 
 #jobs:
 #  build:
