@@ -74,10 +74,6 @@ impl BroadCaster {
     }
 
     fn start(&mut self) {
-        let listen_address = SocketAddrV4::from_str(
-            &format!("{}:{}", self.listen_ip_address, self.listen_port).to_string()
-        ).unwrap();
-
         let listen_address = SocketAddrV4::new(
             Ipv4Addr::from_str(&self.listen_ip_address).unwrap(),
             self.listen_port
@@ -151,6 +147,7 @@ fn main() {
     let mut broad_caster = BroadCaster::new();
     broad_caster.set_listen_port(args.listen_port);
     broad_caster.set_send_port(args.send_port);
+
     println!("*** start broad cast server ***");
     println!("listening address: {}:{}", broad_caster.listen_ip_address, broad_caster.listen_port);
     println!("send port: {}", args.send_port);
