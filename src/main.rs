@@ -1,6 +1,7 @@
 extern crate rosc;
 
 use rosc::{OscPacket, encoder};
+use clap::Parser;
 use std::env;
 use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
@@ -44,6 +45,10 @@ impl BroadCaster {
         self.listen_port = listen_port;
     }
 
+    fn set_send_port(&mut self, send_port: u16) {
+        self.send_port = send_port;
+    }
+
     fn push_send_address(&mut self, ip_address: String) -> bool {
         let address_str = &format!("{}:{}", ip_address, 12000);
         let address = SocketAddrV4::from_str(address_str).unwrap();
@@ -78,8 +83,6 @@ impl BroadCaster {
             self.listen_port
         );
         self.socket = Some(UdpSocket::bind(listen_address).unwrap());
-        println!("broadcast server: {}:{}", self.listen_ip_address, self.listen_port);
-        println!("send port: {}", self.send_port);
 
         let mut buf = [0u8; rosc::decoder::MTU];
         loop {
@@ -134,13 +137,22 @@ impl BroadCaster {
     }
 }
 
-fn get_address_from_arg(arg: &str) -> SocketAddrV4 {
-    SocketAddrV4::from_str(arg).unwrap()
+#[derive(Parser, Debug)]
+#[clap(author, version, about, long_about = None)]
+struct Args {
+    #[clap(short, long, default_value_t = 32000)]
+    listen_port: u16,
+    #[clap(short, long, default_value_t = 12000)]
+    send_port: u16,
 }
 
 fn main() {
+    let args = Args::parse();
     let mut broad_caster = BroadCaster::new();
-    broad_caster.set_listen_ip_address("127.0.0.1".to_string());
-    broad_caster.set_listen_port(32000);
+    broad_caster.set_listen_port(args.listen_port);
+    broad_caster.set_send_port(args.send_port);
+    println!("*** start broad cast server ***");
+    println!("listening address: {}:{}", broad_caster.listen_ip_address, broad_caster.listen_port);
+    println!("send port: {}", args.send_port);
     broad_caster.start();
 }
