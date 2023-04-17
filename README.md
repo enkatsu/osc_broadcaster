@@ -20,11 +20,15 @@ OPTIONS:
 
 ### Connect
 
+You can register as a target client from the distribution by sending an OSC message to osc_broadcast with the address pattern "/server/connect" from your client application.
+
 ```
 (osc_broadcaster) <-{ port: 32000, OSC: /server/connect }- (client)
 ```
 
 ### Broadcast
+
+When the destination clients are registered with osc_broadcast, sending an OSC message to osc_broadcast will distribute the message to all destination clients.
 
 ```
 # Send from client
@@ -37,6 +41,8 @@ OPTIONS:
 ```
 
 ### Disconnect
+
+You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern "/server/disconnect" from your client application.
 
 ```
 (osc_broadcaster) <-{ port: 32000, OSC: /server/disconnect }- (client)
