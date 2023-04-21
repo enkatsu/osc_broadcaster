@@ -5,7 +5,7 @@ use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
 
 
-const DEFAULT_IP_ADDRESS: &str = "127.0.0.1";
+const DEFAULT_IP_ADDRESS: &str = "0.0.0.0";
 const DEFAULT_PORT: u16 = 32000;
 const DEFAULT_SEND_PORT: u16 = 12000;
 
