@@ -1,7 +1,15 @@
 [package]
 name = "osc_broadcaster"
 version = "0.1.0"
+description = "OSC(Open Sound Control) broad cast server"
+license = "MIT"
+readme = "README.md"
 edition = "2021"
+authors = ["Katsuya Endoh"]
+repository = "https://github.com/enkatsu/osc_broadcaster"
+homepage = "https://enkatsu.org"
+categories = ["network-programming"]
+keywords = ["oac", "audio"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

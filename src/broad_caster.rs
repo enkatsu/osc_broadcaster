@@ -28,6 +28,10 @@ impl BroadCaster {
         }
     }
 
+    pub fn set_listen_ip_address(&mut self, listen_ip_address: String) {
+        self.listen_ip_address = listen_ip_address;
+    }
+
     pub fn set_listen_port(&mut self, listen_port: u16) {
         self.listen_port = listen_port;
     }
