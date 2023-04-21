@@ -75,13 +75,13 @@ impl BroadCaster {
     fn handle_message(&mut self, message: &OscMessage, ip_address: IpAddr, packet: &OscPacket) {
         match &message.addr[..] {
             "/server/connect" => {
-                if self.server_connect(ip_address) {
+                if self.push_send_address(ip_address.to_string()) {
                     println!("*** connected ***");
                     self.print_send_addresses();
                 }
             },
             "/server/disconnect" => {
-                if self.server_disconnect(ip_address) {
+                if self.remove_send_address(ip_address.to_string()) {
                     println!("*** disconnected ***");
                     self.print_send_addresses();
                 }
@@ -95,14 +95,6 @@ impl BroadCaster {
                 }
             }
         }
-    }
-
-    fn server_connect(&mut self, ip_address: IpAddr) -> bool {
-        self.push_send_address(ip_address.to_string())
-    }
-
-    fn server_disconnect(&mut self, ip_address: IpAddr) -> bool {
-        self.remove_send_address(ip_address.to_string())
     }
 
     fn send_message(&self, packet: &OscPacket) -> usize {
