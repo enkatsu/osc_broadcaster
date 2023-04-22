@@ -1,9 +1,9 @@
 extern crate rosc;
 
-use rosc::{OscPacket, encoder, OscBundle, OscMessage};
+use rosc::{OscPacket, encoder, OscBundle, OscMessage, OscType};
 use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
-
+use comfy_table::Table;
 
 const DEFAULT_IP_ADDRESS: &str = "0.0.0.0";
 const DEFAULT_PORT: u16 = 32000;
@@ -51,7 +51,6 @@ impl BroadCaster {
         loop {
             match self.socket.as_ref().unwrap().recv_from(&mut buf) {
                 Ok((size, address)) => {
-                    println!("Received packet with size {} from: {}", size, address);
                     let (_, packet) = rosc::decoder::decode_udp(&buf[..size]).unwrap();
                     self.handle_packet(address.ip(), &packet);
                 }
@@ -69,7 +68,7 @@ impl BroadCaster {
                 self.handle_message(message, ip_address, packet);
             }
             OscPacket::Bundle(bundle) => {
-                println!("*** broadcast bundle ***");
+                println!("Broadcast bundle");
                 self.send_bundle(bundle);
                 println!("OSC Bundle: {:?}", bundle);
             }
@@ -80,22 +79,20 @@ impl BroadCaster {
         match &message.addr[..] {
             "/server/connect" => {
                 if self.push_send_address(ip_address.to_string()) {
-                    println!("*** connected ***");
+                    println!("*** Connected ***");
                     self.print_send_addresses();
                 }
             },
             "/server/disconnect" => {
                 if self.remove_send_address(ip_address.to_string()) {
-                    println!("*** disconnected ***");
+                    println!("*** Disconnected ***");
                     self.print_send_addresses();
                 }
             },
             _ => {
                 if self.send_message(packet) > 0 {
-                    println!("*** broadcast message ***");
-                    self.print_send_addresses();
-                    println!("OSC address: {}", message.addr);
-                    println!("OSC arguments: {:?}", message.args);
+                    println!("*** Broadcast message ***");
+                    self.print_message(message);
                 }
             }
         }
@@ -136,10 +133,31 @@ impl BroadCaster {
     }
 
     fn print_send_addresses(&self) {
-        let send_addresses_string: Vec<String> = self.send_addresses.iter()
-            .map(|address| address.to_string())
+        let mut table = Table::new();
+        table.set_header(vec!["IP", "PORT"]);
+        for address in &self.send_addresses {
+            table.add_row(vec![
+                     address.ip().to_string(),
+                     address.port().to_string(),
+            ]);
+        }
+        println!("{}", table);
+    }
+
+    fn print_message(&self, message: &OscMessage) {
+        let mut table = Table::new();
+        let mut header = vec!["OSC Address".to_string()];
+        let mut args_header: Vec<String> = (0..message.args.len())
+            .map(|i| format!("Arg {:?}", i))
             .collect();
-        let joined = send_addresses_string.join(", ");
-        println!("connected: [ {} ]", joined);
+        header.append(&mut args_header);
+        table.set_header(header);
+        let mut row = vec![message.addr.to_string()];
+        let mut args_row: Vec<String> = message.args.iter()
+            .map(|msg| format!("{:?}", msg))
+            .collect();
+        row.append(&mut args_row);
+        table.add_row(row);
+        println!("{}", table);
     }
 }
