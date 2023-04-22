@@ -1,6 +1,6 @@
 OSC (Open Sound Control) broadcast server that can be started from the command line.
-This is a Rust implementation of [oscP5broadcaster](https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde).
-oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/oscP5/).
+This is a Rust implementation of <a href="https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde" target="_blank">oscP5broadcaster</a>.
+oscP5broadcaster is a sample application of <a href="https://sojamo.de/libraries/oscP5/" target="_blank">oscP5</a>.
 
 # Usage
 
@@ -47,5 +47,5 @@ You can exclude a target client from the distribution by sending an OSC message 
 
 # Info
 
-- [Repository](https://github.com/enkatsu/osc_broadcaster)
-- Author: [Katsuya Endoh](https://enkatsu.org)
+- <a href="https://github.com/enkatsu/osc_broadcaster" target="_blank">GitHub Repository</a>
+- Author: <a href="https://enkatsu.org" target="_blank">Katsuya Endoh</a>
