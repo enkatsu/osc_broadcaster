@@ -7,7 +7,7 @@ readme = "README.md"
 edition = "2021"
 authors = ["Katsuya Endoh"]
 repository = "https://github.com/enkatsu/osc_broadcaster"
-homepage = "https://enkatsu.org"
+homepage = "https://osc_broadcaster.enkatsu.org/"
 categories = ["network-programming"]
 keywords = ["oac", "audio"]
 
