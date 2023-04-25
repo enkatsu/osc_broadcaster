@@ -32,10 +32,11 @@ USAGE:
     osc_broadcaster [OPTIONS]
 
 OPTIONS:
-    -h, --help                         Print help information
-    -l, --listen-port <LISTEN_PORT>    [default: 32000]
-    -s, --send-port <SEND_PORT>        [default: 12000]
-    -V, --version                      Print version information
+    -h, --help                                     Print help information
+    -i, --listen-ip-address <LISTEN_IP_ADDRESS>    [default: 0.0.0.0]
+    -l, --listen-port <LISTEN_PORT>                [default: 32000]
+    -s, --send-port <SEND_PORT>                    [default: 12000]
+    -V, --version                                  Print version information
 ```
 
 ### Connect
