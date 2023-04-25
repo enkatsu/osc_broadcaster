@@ -69,19 +69,19 @@ impl BroadCaster {
             "/server/connect" => {
                 if self.push_send_address(ip_address.to_string()) {
                     println!("*** Connected ***");
-                    self.print_send_addresses();
+                    BroadCaster::print_send_addresses(&self.send_addresses);
                 }
             },
             "/server/disconnect" => {
                 if self.remove_send_address(ip_address.to_string()) {
                     println!("*** Disconnected ***");
-                    self.print_send_addresses();
+                    BroadCaster::print_send_addresses(&self.send_addresses);
                 }
             },
             _ => {
                 if self.send_message(packet) > 0 {
                     println!("*** Broadcast message ***");
-                    self.print_message(message);
+                    BroadCaster::print_message(message);
                 }
             }
         }
