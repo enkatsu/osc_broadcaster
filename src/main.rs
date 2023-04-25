@@ -22,8 +22,8 @@ struct Args {
 fn main() {
     let args = Args::parse();
     let mut broad_caster = BroadCaster::new();
-    broad_caster.set_listen_ip_address(args.listen_ip_address);
-    broad_caster.set_listen_port(args.listen_port);
-    broad_caster.set_send_port(args.send_port);
+    broad_caster.listen_ip_address = args.listen_ip_address;
+    broad_caster.listen_port = args.listen_port;
+    broad_caster.send_port = args.send_port;
     broad_caster.start();
 }

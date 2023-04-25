@@ -11,8 +11,8 @@ const DEFAULT_SEND_PORT: u16 = 12000;
 
 pub struct BroadCaster {
     send_addresses: Vec<SocketAddrV4>,
-    pub send_port: u16,
     socket: Option<UdpSocket>,
+    pub send_port: u16,
     pub listen_ip_address: String,
     pub listen_port: u16,
 }
@@ -26,18 +26,6 @@ impl BroadCaster {
             listen_ip_address: DEFAULT_IP_ADDRESS.to_string(),
             listen_port: DEFAULT_PORT,
         }
-    }
-
-    pub fn set_listen_ip_address(&mut self, listen_ip_address: String) {
-        self.listen_ip_address = listen_ip_address;
-    }
-
-    pub fn set_listen_port(&mut self, listen_port: u16) {
-        self.listen_port = listen_port;
-    }
-
-    pub fn set_send_port(&mut self, send_port: u16) {
-        self.send_port = send_port;
     }
 
     pub fn start(&mut self) {
@@ -60,7 +48,8 @@ impl BroadCaster {
         loop {
             match self.socket.as_ref().unwrap().recv_from(&mut buf) {
                 Ok((size, address)) => {
-                    let (_, packet) = rosc::decoder::decode_udp(&buf[..size]).unwrap();
+                    let (_, packet) = rosc::decoder::decode_udp(&buf[..size])
+                        .unwrap();
                     self.handle_packet(address.ip(), &packet);
                 }
                 Err(e) => {
@@ -128,7 +117,8 @@ impl BroadCaster {
     fn push_send_address(&mut self, ip_address: String) -> bool {
         let address_str = &format!("{}:{}", ip_address, 12000);
         let address = SocketAddrV4::from_str(address_str).unwrap();
-        let found = self.send_addresses.iter().find(|&address| address.ip().to_string() == ip_address);
+        let found = self.send_addresses.iter()
+            .find(|&address| address.ip().to_string() == ip_address);
         if found == None {
             self.send_addresses.push(address);
             return true;
@@ -137,10 +127,13 @@ impl BroadCaster {
     }
 
     fn remove_send_address(&mut self, ip_address: String) -> bool {
-        self.send_addresses.retain(|&send_address| send_address.ip().to_string() != ip_address);
+        self.send_addresses
+            .retain(|&send_address| send_address.ip().to_string() != ip_address);
         return true;
     }
+}
 
+impl BroadCaster {
     fn print_send_addresses(&self) {
         let mut table = Table::new();
         table.set_header(vec!["IP", "PORT"]);
