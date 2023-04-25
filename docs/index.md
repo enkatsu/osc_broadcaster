@@ -15,6 +15,14 @@ brew install osc_broadcaster
 
 [here](https://github.com/enkatsu/osc_broadcaster/releases)
 
+### Build from source code
+
+```shell
+git clone https://github.com/enkatsu/osc_broadcaster.git
+cd osc_broadcaster
+cargo install
+```
+
 # Usage
 
 ```
