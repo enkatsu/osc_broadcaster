@@ -1,6 +1,6 @@
 extern crate rosc;
 
-use rosc::{OscPacket, encoder, OscBundle, OscMessage, OscType};
+use rosc::{OscPacket, encoder, OscBundle, OscMessage};
 use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
 use comfy_table::Table;
@@ -41,6 +41,15 @@ impl BroadCaster {
     }
 
     pub fn start(&mut self) {
+        let mut table = Table::new();
+        table.set_header(vec!["Listening IP", "Listening PORT", "Send PORT"]);
+        table.add_row(vec![
+            &self.listen_ip_address,
+            &self.listen_port.to_string(),
+            &self.send_port.to_string(),
+        ]);
+        println!("{}", table);
+
         let listen_address = SocketAddrV4::new(
             Ipv4Addr::from_str(&self.listen_ip_address).unwrap(),
             self.listen_port
