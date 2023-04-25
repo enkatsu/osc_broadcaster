@@ -2,6 +2,19 @@ OSC (Open Sound Control) broadcast server that can be started from the command l
 This is a Rust implementation of <a href="https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde" target="_blank">oscP5broadcaster</a>.
 oscP5broadcaster is a sample application of <a href="https://sojamo.de/libraries/oscP5/" target="_blank">oscP5</a>.
 
+# Installation
+
+## Homebrew
+
+```sh
+brew tap enkatsu/osc_broadcaster
+brew install osc_broadcaster
+```
+
+## Download binary
+
+[here](https://github.com/enkatsu/osc_broadcaster/releases)
+
 # Usage
 
 ```
