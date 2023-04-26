@@ -2,7 +2,6 @@ use super::BroadCaster;
 use rosc::{OscPacket, encoder, OscBundle, OscMessage};
 use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
-use comfy_table::Table;
 
 const DEFAULT_IP_ADDRESS: &str = "0.0.0.0";
 const DEFAULT_PORT: u16 = 32000;
