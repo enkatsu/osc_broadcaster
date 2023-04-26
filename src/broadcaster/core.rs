@@ -20,14 +20,7 @@ impl BroadCaster {
     }
 
     pub fn start(&mut self) {
-        let mut table = Table::new();
-        table.set_header(vec!["Listening IP", "Listening PORT", "Send PORT"]);
-        table.add_row(vec![
-            &self.listen_ip_address,
-            &self.listen_port.to_string(),
-            &self.send_port.to_string(),
-        ]);
-        println!("{}", table);
+        BroadCaster::print_settings(&self.listen_ip_address, &self.listen_port, &self.send_port);
 
         let listen_address = SocketAddrV4::new(
             Ipv4Addr::from_str(&self.listen_ip_address).unwrap(),

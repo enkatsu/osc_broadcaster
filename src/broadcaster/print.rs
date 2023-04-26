@@ -4,6 +4,17 @@ use rosc::OscMessage;
 use comfy_table::Table;
 
 impl BroadCaster {
+    pub fn print_settings(listen_ip_address: &String, listen_port: &u16, send_port: &u16) {
+        let mut table = Table::new();
+        table.set_header(vec!["Listening IP", "Listening PORT", "Send PORT"]);
+        table.add_row(vec![
+            listen_ip_address,
+            &listen_port.to_string(),
+            &send_port.to_string(),
+        ]);
+        println!("{}", table);
+    }
+
     pub fn print_send_addresses(send_addresses: &Vec<SocketAddrV4>) {
         let mut table = Table::new();
         table.set_header(vec!["IP", "PORT"]);
