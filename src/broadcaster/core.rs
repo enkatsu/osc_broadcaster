@@ -7,9 +7,15 @@ const DEFAULT_IP_ADDRESS: &str = "0.0.0.0";
 const DEFAULT_PORT: u16 = 32000;
 const DEFAULT_SEND_PORT: u16 = 12000;
 
+impl Default for BroadCaster {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl BroadCaster {
     pub fn new() -> Self {
-        return Self {
+        Self {
             send_addresses: Vec::new(),
             send_port: DEFAULT_SEND_PORT,
             socket: None,
@@ -65,7 +71,7 @@ impl BroadCaster {
                 }
             },
             "/server/disconnect" => {
-                if self.remove_send_address(ip_address.to_string()) {
+                if self.remove_send_address(ip_address) {
                     println!("*** Disconnected ***");
                     BroadCaster::print_send_addresses(&self.send_addresses);
                 }
@@ -80,7 +86,7 @@ impl BroadCaster {
     }
 
     fn send_message(&self, packet: &OscPacket) -> usize {
-        let msg_buf = encoder::encode(&packet).unwrap();
+        let msg_buf = encoder::encode(packet).unwrap();
         for address in &self.send_addresses {
             self.socket.as_ref().unwrap().send_to(&msg_buf, address).unwrap();
         }
@@ -90,7 +96,7 @@ impl BroadCaster {
     fn send_bundle(&self, bundle: &OscBundle) -> usize {
         for address in &self.send_addresses {
             for packet in &bundle.content {
-                let msg_buf = encoder::encode(&packet).unwrap();
+                let msg_buf = encoder::encode(packet).unwrap();
                 self.socket.as_ref().unwrap().send_to(&msg_buf, address).unwrap();
             }
         }
@@ -102,16 +108,16 @@ impl BroadCaster {
         let address = SocketAddrV4::from_str(address_str).unwrap();
         let found = self.send_addresses.iter()
             .find(|&address| address.ip().to_string() == ip_address);
-        if found == None {
+        if found.is_none() {
             self.send_addresses.push(address);
             return true;
         }
-        return false;
+        false
     }
 
-    fn remove_send_address(&mut self, ip_address: String) -> bool {
+    fn remove_send_address(&mut self, ip_address: IpAddr) -> bool {
         self.send_addresses
-            .retain(|&send_address| send_address.ip().to_string() != ip_address);
-        return true;
+            .retain(|&send_address| send_address.to_string() == ip_address.to_string());
+        true
     }
 }
