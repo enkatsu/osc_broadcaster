@@ -1,10 +1,7 @@
 use clap::Parser;
-use broad_caster::BroadCaster;
+use broadcaster::BroadCaster;
 
-pub mod broad_caster;
-pub mod broad_caster_core;
-pub mod broad_caster_print;
-
+pub mod broadcaster;
 
 #[derive(Parser, Debug)]
 #[clap(
