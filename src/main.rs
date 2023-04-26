@@ -1,5 +1,5 @@
-use clap::Parser;
 use broadcaster::BroadCaster;
+use clap::Parser;
 
 pub mod broadcaster;
 

@@ -1,7 +1,7 @@
-use std::net::SocketAddrV4;
 use super::BroadCaster;
 use rosc::OscMessage;
 use comfy_table::Table;
+use std::net::SocketAddrV4;
 
 impl BroadCaster {
     pub fn print_settings(listen_ip_address: &String, listen_port: &u16, send_port: &u16) {
