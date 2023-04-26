@@ -1,5 +1,3 @@
-extern crate rosc;
-
 use std::net::{SocketAddrV4, UdpSocket};
 pub mod core;
 pub mod print;
