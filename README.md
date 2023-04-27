@@ -6,7 +6,7 @@ oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/
 
 ## Installation
 
-### Install with Homebrew
+### Install using Homebrew
 
 ```shell
 brew tap enkatsu/osc_broadcaster
@@ -17,7 +17,7 @@ brew install osc_broadcaster
 
 [here](https://github.com/enkatsu/osc_broadcaster/releases)
 
-### Build from source code
+### Build from source code using Cargo
 
 ```shell
 git clone https://github.com/enkatsu/osc_broadcaster.git
