@@ -48,15 +48,15 @@ You can register as a target client from the distribution by sending an OSC mess
 
 When the destination clients are registered with osc_broadcast, sending an OSC message to osc_broadcast will distribute the message to all destination clients.
 
-![](docs/image/figure/3.png)
-![](docs/image/figure/4.png)
+![](image/figure/3.png)
+![](image/figure/4.png)
 
 ## Disconnect
 
 You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern "/server/disconnect" from your client application.
 
-![](docs/image/figure/5.png)
-![](docs/image/figure/8.png)
+![](image/figure/5.png)
+![](image/figure/8.png)
 
 # Info
 
