@@ -6,14 +6,14 @@ oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/
 
 ## Installation
 
-### Homebrew
+### Install with Homebrew
 
 ```shell
 brew tap enkatsu/osc_broadcaster
 brew install osc_broadcaster
 ```
 
-### Download binary
+### Download and use the binary file
 
 [here](https://github.com/enkatsu/osc_broadcaster/releases)
 

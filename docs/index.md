@@ -1,17 +1,19 @@
-OSC (Open Sound Control) broadcast server that can be started from the command line.
-This is a Rust implementation of <a href="https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde" target="_blank">oscP5broadcaster</a>.
-oscP5broadcaster is a sample application of <a href="https://sojamo.de/libraries/oscP5/" target="_blank">oscP5</a>.
+# OSC Broadcaster
 
-# Installation
+An OSC (Open Sound Control) broadcast server that can be started from the command line.
+It is a Rust implementation of [oscP5broadcaster](https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde).
+oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/oscP5/).
 
-## Homebrew
+## Installation
 
-```sh
+### Install with Homebrew
+
+```shell
 brew tap enkatsu/osc_broadcaster
 brew install osc_broadcaster
 ```
 
-## Download binary
+### Download and use the binary file
 
 [here](https://github.com/enkatsu/osc_broadcaster/releases)
 
@@ -23,7 +25,7 @@ cd osc_broadcaster
 cargo install
 ```
 
-# Usage
+## Usage
 
 ```
 USAGE:
@@ -37,28 +39,23 @@ OPTIONS:
     -V, --version                                  Print version information
 ```
 
-## Connect
+### Connect
 
 You can register as a target client from the distribution by sending an OSC message to osc_broadcast with the address pattern "/server/connect" from your client application.
 
 ![](image/figure/1.png)
 ![](image/figure/2.png)
 
-## Broadcast
+### Broadcast
 
 When the destination clients are registered with osc_broadcast, sending an OSC message to osc_broadcast will distribute the message to all destination clients.
 
 ![](image/figure/3.png)
 ![](image/figure/4.png)
 
-## Disconnect
+### Disconnect
 
 You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern "/server/disconnect" from your client application.
 
 ![](image/figure/5.png)
 ![](image/figure/8.png)
-
-# Info
-
-- <a href="https://github.com/enkatsu/osc_broadcaster" target="_blank">GitHub Repository</a>
-- Author: <a href="https://enkatsu.org" target="_blank">Katsuya Endoh</a>
