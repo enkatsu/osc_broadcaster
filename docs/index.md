@@ -39,7 +39,7 @@ OPTIONS:
 
 ### Connect
 
-You can register as a target client from the distribution by sending an OSC message to osc_broadcast with the address pattern "/server/connect" from your client application.
+You can register as a target client from the distribution by sending an OSC message to osc_broadcast with the address pattern `/server/connect` from your client application.
 
 ![](image/figure/1.png)
 ![](image/figure/2.png)
@@ -53,7 +53,7 @@ When the destination clients are registered with osc_broadcast, sending an OSC m
 
 ### Disconnect
 
-You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern "/server/disconnect" from your client application.
+You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern `/server/disconnect` from your client application.
 
 ![](image/figure/5.png)
 ![](image/figure/8.png)
