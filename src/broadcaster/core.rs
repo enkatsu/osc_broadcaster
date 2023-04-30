@@ -65,13 +65,27 @@ impl BroadCaster {
     fn handle_message(&mut self, message: &OscMessage, ip_address: IpAddr, packet: &OscPacket) {
         match &message.addr[..] {
             "/server/connect" => {
-                if self.push_send_address(ip_address, message) {
+                let port: u16 = match self.convert_connection_message_to_port_number(message) {
+                    Ok(i) => i,
+                    Err(e) => {
+                        println!("{}", e);
+                        return;
+                    }
+                };
+                if self.push_send_address(ip_address, port) {
                     println!("*** Connected ***");
                     BroadCaster::print_send_addresses(&self.send_addresses);
                 }
             },
             "/server/disconnect" => {
-                if self.remove_send_address(ip_address, message) {
+                let port: u16 = match self.convert_connection_message_to_port_number(message) {
+                    Ok(i) => i,
+                    Err(e) => {
+                        println!("{}", e);
+                        return;
+                    }
+                };
+                if self.remove_send_address(ip_address, port) {
                     println!("*** Disconnected ***");
                     BroadCaster::print_send_addresses(&self.send_addresses);
                 }
@@ -103,14 +117,7 @@ impl BroadCaster {
         self.send_addresses.len()
     }
 
-    fn push_send_address(&mut self, ip_address: IpAddr, message: &OscMessage) -> bool {
-        let port: u16 = match self.convert_connection_message_to_port_number(message) {
-            Ok(i) => i,
-            Err(e) => {
-                println!("{}", e);
-                return false
-            }
-        };
+    fn push_send_address(&mut self, ip_address: IpAddr, port: u16) -> bool {
         let address = SocketAddrV4::new(
             Ipv4Addr::from_str(&ip_address.to_string()).unwrap(),
             port
@@ -124,14 +131,7 @@ impl BroadCaster {
         false
     }
 
-    fn remove_send_address(&mut self, ip_address: IpAddr, message: &OscMessage) -> bool {
-        let port: u16 = match self.convert_connection_message_to_port_number(message) {
-            Ok(i) => i,
-            Err(e) => {
-                println!("{}", e);
-                return false
-            }
-        };
+    fn remove_send_address(&mut self, ip_address: IpAddr, port: u16) -> bool {
         let address = SocketAddrV4::new(
             Ipv4Addr::from_str(&ip_address.to_string()).unwrap(),
             port

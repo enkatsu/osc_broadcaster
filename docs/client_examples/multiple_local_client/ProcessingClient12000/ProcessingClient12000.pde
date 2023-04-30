@@ -20,6 +20,7 @@ void draw() {
   for (Circle circle: circles) {
     circle.draw();
   }
+  text("'c': connect\n'd': disconnect", 10, 20);
 }
 
 
@@ -69,7 +70,10 @@ class Circle {
   }
 
   void draw() {
+    push();
+    noStroke();
     fill(c);
     ellipse(x, y, r, r);
+    pop();
   }
 }
