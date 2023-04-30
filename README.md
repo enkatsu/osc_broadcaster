@@ -36,11 +36,23 @@ USAGE:
     osc_broadcaster [OPTIONS]
 
 OPTIONS:
-    -h, --help                                     Print help information
-    -i, --listen-ip-address <LISTEN_IP_ADDRESS>    [default: 0.0.0.0]
-    -l, --listen-port <LISTEN_PORT>                [default: 32000]
-    -s, --send-port <SEND_PORT>                    [default: 12000]
-    -V, --version                                  Print version information
+    -f, --file <FILE>
+            Reads the initial state of connected clients from a file (JSON, YAML, TOML, CSV)
+
+    -h, --help
+            Print help information
+
+    -i, --listen-ip-address <LISTEN_IP_ADDRESS>
+            Specify the listen IP address of the broadcast server [default: 0.0.0.0]
+
+    -l, --listen-port <LISTEN_PORT>
+            Specify the listen port of the broadcast server [default: 32000]
+
+    -s, --send-port <SEND_PORT>
+            Specify the send port of the broadcast server [default: 12000]
+
+    -V, --version
+            Print version information
 ```
 
 ### Connect

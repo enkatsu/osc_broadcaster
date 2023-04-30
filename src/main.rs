@@ -21,7 +21,7 @@ struct Args {
     /// Specify the send port of the broadcast server
     #[clap(short, long, default_value_t = 12000)]
     send_port: u16,
-    /// Reads the initial state of connected clients from a file
+    /// Reads the initial state of connected clients from a file (JSON, YAML, TOML, CSV)
     #[clap(short, long, value_name = "FILE")]
     file: Option<PathBuf>,
 }
