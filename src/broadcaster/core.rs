@@ -103,7 +103,7 @@ impl BroadCaster {
         self.send_addresses.len()
     }
 
-    fn push_send_address(&mut self, ip_address: String) -> bool {
+    pub fn push_send_address(&mut self, ip_address: String) -> bool {
         let address_str = &format!("{}:{}", ip_address, 12000);
         let address = SocketAddrV4::from_str(address_str).unwrap();
         let found = self.send_addresses.iter()
@@ -115,7 +115,7 @@ impl BroadCaster {
         false
     }
 
-    fn remove_send_address(&mut self, ip_address: IpAddr) -> bool {
+    pub fn remove_send_address(&mut self, ip_address: IpAddr) -> bool {
         self.send_addresses
             .retain(|&send_address| send_address.to_string() == ip_address.to_string());
         true

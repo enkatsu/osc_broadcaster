@@ -17,3 +17,4 @@ keywords = ["osc", "audio"]
 rosc = "~0.10"
 clap = { version = "3.2.23", features = [ "derive" ] }
 comfy-table = "4.1.1"
+csv = "1.2"
