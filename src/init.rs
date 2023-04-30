@@ -8,14 +8,17 @@ use::csv;
 use crate::broadcaster::BroadCaster;
 
 #[derive(Serialize, Deserialize, Debug)]
-struct Config {
-    clients: Vec<Client>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
 struct Client {
     address: String,
     port: u16,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Config {
+    clients: Option<Vec<Client>>,
+    listen_ip_address: Option<String>,
+    listen_port: Option<u16>,
+    send_port: Option<u16>,
 }
 
 fn init_from_csv(broad_caster: &mut BroadCaster, path: &PathBuf) {
@@ -33,11 +36,8 @@ fn init_from_json(broad_caster: &mut BroadCaster, path: &PathBuf) {
     let file = File::open(path).unwrap();
     let reader = BufReader::new(file);
     let config: Config = serde_json::from_reader::<BufReader<File>, Config>(reader).unwrap();
-    for client in config.clients {
-        broad_caster.push_send_address(
-            IpAddr::from_str(&client.address).unwrap(),
-            client.port
-        );
+    if let Some(clients) = config.clients {
+        init_clients(broad_caster, clients);
     }
 }
 
@@ -45,11 +45,8 @@ fn init_from_yaml(broad_caster: &mut BroadCaster, path: &PathBuf) {
     let file = File::open(path).unwrap();
     let reader = BufReader::new(file);
     let config: Config = serde_yaml::from_reader(reader).unwrap();
-    for client in config.clients {
-        broad_caster.push_send_address(
-            IpAddr::from_str(&client.address).unwrap(),
-            client.port
-        );
+    if let Some(clients) = config.clients {
+        init_clients(broad_caster, clients);
     }
 }
 
@@ -59,7 +56,13 @@ fn init_from_toml(broad_caster: &mut BroadCaster, path: &PathBuf) {
     let mut toml_string = String::new();
     reader.read_to_string(&mut toml_string).unwrap();
     let config: Config = toml::from_str(&toml_string).unwrap();
-    for client in config.clients {
+    if let Some(clients) = config.clients {
+        init_clients(broad_caster, clients);
+    }
+}
+
+fn init_clients(broad_caster: &mut BroadCaster, clients: Vec<Client>) {
+    for client in clients {
         broad_caster.push_send_address(
             IpAddr::from_str(&client.address).unwrap(),
             client.port
