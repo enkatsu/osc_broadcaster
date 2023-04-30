@@ -26,7 +26,9 @@ impl BroadCaster {
 
     pub fn start(&mut self) {
         BroadCaster::print_settings(&self.listen_ip_address, &self.listen_port, &self.send_port);
-        BroadCaster::print_send_addresses(&self.send_addresses);
+        if !self.send_addresses.is_empty() {
+            BroadCaster::print_send_addresses(&self.send_addresses);
+        }
 
         let listen_address = SocketAddrV4::new(
             Ipv4Addr::from_str(&self.listen_ip_address).unwrap(),
