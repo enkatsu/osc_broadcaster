@@ -1,12 +1,8 @@
-extern crate csv;
-
-use std::fs::File;
 use std::path::PathBuf;
-use broadcaster::BroadCaster;
 use clap::Parser;
-use csv::Reader;
 
-pub mod broadcaster;
+mod broadcaster;
+mod init;
 
 #[derive(Parser, Debug)]
 #[clap(
@@ -30,28 +26,17 @@ struct Args {
     file: Option<PathBuf>,
 }
 
-fn init_from_csv(broad_caster: &mut BroadCaster, mut reader: Reader<File>) {
-    for record in reader.records() {
-        let row = record.unwrap();
-        let address = row.get(0).unwrap();
-        // let port = row.get(1).unwrap();
-        broad_caster.push_send_address(address.to_string());
-    }
-}
-
 fn main() {
     let args = Args::parse();
-    let mut broad_caster = BroadCaster::new();
+    let mut broad_caster = broadcaster::BroadCaster::new();
     broad_caster.listen_ip_address = args.listen_ip_address;
     broad_caster.listen_port = args.listen_port;
     broad_caster.send_port = args.send_port;
-    match args.file {
-        Some(ref path) => {
-            let mut reader = csv::Reader::from_path(path).unwrap();
-            init_from_csv(&mut broad_caster, reader);
-        },
-        None => {
-        },
+    if let Some(path) = args.file {
+        if !path.exists() {
+            panic!("{:?} is not found", path);
+        }
+        init::init_from_file(&mut broad_caster, &path);
     }
     broad_caster.start();
 }

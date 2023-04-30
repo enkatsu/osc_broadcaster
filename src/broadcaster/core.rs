@@ -1,5 +1,5 @@
 use super::BroadCaster;
-use rosc::{OscPacket, encoder, OscBundle, OscMessage};
+use rosc::{OscPacket, encoder, OscBundle, OscMessage, OscType, OscError};
 use std::net::{IpAddr, Ipv4Addr, SocketAddrV4, UdpSocket};
 use std::str::FromStr;
 
@@ -26,6 +26,7 @@ impl BroadCaster {
 
     pub fn start(&mut self) {
         BroadCaster::print_settings(&self.listen_ip_address, &self.listen_port, &self.send_port);
+        BroadCaster::print_send_addresses(&self.send_addresses);
 
         let listen_address = SocketAddrV4::new(
             Ipv4Addr::from_str(&self.listen_ip_address).unwrap(),
@@ -65,13 +66,27 @@ impl BroadCaster {
     fn handle_message(&mut self, message: &OscMessage, ip_address: IpAddr, packet: &OscPacket) {
         match &message.addr[..] {
             "/server/connect" => {
-                if self.push_send_address(ip_address.to_string()) {
+                let port: u16 = match self.convert_connection_message_to_port_number(message) {
+                    Ok(i) => i,
+                    Err(e) => {
+                        println!("{}", e);
+                        return;
+                    }
+                };
+                if self.push_send_address(ip_address, port) {
                     println!("*** Connected ***");
                     BroadCaster::print_send_addresses(&self.send_addresses);
                 }
             },
             "/server/disconnect" => {
-                if self.remove_send_address(ip_address) {
+                let port: u16 = match self.convert_connection_message_to_port_number(message) {
+                    Ok(i) => i,
+                    Err(e) => {
+                        println!("{}", e);
+                        return;
+                    }
+                };
+                if self.remove_send_address(ip_address, port) {
                     println!("*** Disconnected ***");
                     BroadCaster::print_send_addresses(&self.send_addresses);
                 }
@@ -103,11 +118,13 @@ impl BroadCaster {
         self.send_addresses.len()
     }
 
-    pub fn push_send_address(&mut self, ip_address: String) -> bool {
-        let address_str = &format!("{}:{}", ip_address, 12000);
-        let address = SocketAddrV4::from_str(address_str).unwrap();
+    pub fn push_send_address(&mut self, ip_address: IpAddr, port: u16) -> bool {
+        let address = SocketAddrV4::new(
+            Ipv4Addr::from_str(&ip_address.to_string()).unwrap(),
+            port
+        );
         let found = self.send_addresses.iter()
-            .find(|&address| address.ip().to_string() == ip_address);
+            .find(|&send_address| send_address.to_string() == address.to_string());
         if found.is_none() {
             self.send_addresses.push(address);
             return true;
@@ -115,9 +132,34 @@ impl BroadCaster {
         false
     }
 
-    pub fn remove_send_address(&mut self, ip_address: IpAddr) -> bool {
+    pub fn remove_send_address(&mut self, ip_address: IpAddr, port: u16) -> bool {
+        let address = SocketAddrV4::new(
+            Ipv4Addr::from_str(&ip_address.to_string()).unwrap(),
+            port
+        );
         self.send_addresses
-            .retain(|&send_address| send_address.to_string() == ip_address.to_string());
+            .retain(|&send_address| {
+                println!("address: {}", address);
+                println!("send_address: {}", send_address);
+                send_address.to_string() != address.to_string()
+            });
         true
+    }
+
+    fn convert_connection_message_to_port_number(&mut self, message: &OscMessage) -> Result<u16, OscError> {
+        if message.args.is_empty() {
+            return Ok(self.send_port)
+        }
+
+        match message.args[0].clone() {
+            OscType::Int(i) => {
+                Ok(i as u16)
+            },
+            _ => {
+                println!("{:?}", message);
+                let error_message = format!("Expected type int, but received {:?}", message.args[0]);
+                Err(OscError::BadArg(error_message))
+            },
+        }
     }
 }
