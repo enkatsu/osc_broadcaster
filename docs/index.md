@@ -60,4 +60,4 @@ You can exclude a target client from the distribution by sending an OSC message 
 
 # Client examples
 
-![Client examples](./client_examples)
+[Client examples](./client_examples)
