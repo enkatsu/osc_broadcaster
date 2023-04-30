@@ -57,3 +57,7 @@ You can exclude a target client from the distribution by sending an OSC message 
 
 ![](image/figure/5.png)
 ![](image/figure/8.png)
+
+# Client examples
+
+![Client examples](./client_examples)
