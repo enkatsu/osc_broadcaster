@@ -2,20 +2,20 @@ An OSC (Open Sound Control) broadcast server that can be started from the comman
 It is a Rust implementation of [oscP5broadcaster](https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde).
 oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/oscP5/).
 
-## Installation
+# Installation
 
-### Install using Homebrew
+## Install using Homebrew
 
 ```shell
 brew tap enkatsu/osc_broadcaster
 brew install osc_broadcaster
 ```
 
-### Download and use the binary file
+## Download and use the binary file
 
 [here](https://github.com/enkatsu/osc_broadcaster/releases)
 
-### Build from source code using Cargo
+## Build from source code using Cargo
 
 ```shell
 git clone https://github.com/enkatsu/osc_broadcaster.git
@@ -23,7 +23,7 @@ cd osc_broadcaster
 cargo install
 ```
 
-## Usage
+# Usage
 
 ```
 USAGE:
@@ -37,21 +37,21 @@ OPTIONS:
     -V, --version                                  Print version information
 ```
 
-### Connect
+## Connect
 
 You can register as a target client from the distribution by sending an OSC message to osc_broadcast with the address pattern `/server/connect` from your client application.
 
 ![](image/figure/1.png)
 ![](image/figure/2.png)
 
-### Broadcast
+## Broadcast
 
 When the destination clients are registered with osc_broadcast, sending an OSC message to osc_broadcast will distribute the message to all destination clients.
 
 ![](image/figure/3.png)
 ![](image/figure/4.png)
 
-### Disconnect
+## Disconnect
 
 You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern `/server/disconnect` from your client application.
 
