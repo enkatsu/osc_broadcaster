@@ -39,6 +39,15 @@ fn init_from_json(broad_caster: &mut BroadCaster, path: &PathBuf) {
     if let Some(clients) = config.clients {
         init_clients(broad_caster, clients);
     }
+    if let Some(listen_ip_address) = config.listen_ip_address {
+        broad_caster.listen_ip_address = listen_ip_address;
+    }
+    if let Some(listen_port) = config.listen_port {
+        broad_caster.listen_port = listen_port;
+    }
+    if let Some(send_port) = config.send_port {
+        broad_caster.send_port = send_port;
+    }
 }
 
 fn init_from_yaml(broad_caster: &mut BroadCaster, path: &PathBuf) {
@@ -47,6 +56,15 @@ fn init_from_yaml(broad_caster: &mut BroadCaster, path: &PathBuf) {
     let config: Config = serde_yaml::from_reader(reader).unwrap();
     if let Some(clients) = config.clients {
         init_clients(broad_caster, clients);
+    }
+    if let Some(listen_ip_address) = config.listen_ip_address {
+        broad_caster.listen_ip_address = listen_ip_address;
+    }
+    if let Some(listen_port) = config.listen_port {
+        broad_caster.listen_port = listen_port;
+    }
+    if let Some(send_port) = config.send_port {
+        broad_caster.send_port = send_port;
     }
 }
 
@@ -58,6 +76,15 @@ fn init_from_toml(broad_caster: &mut BroadCaster, path: &PathBuf) {
     let config: Config = toml::from_str(&toml_string).unwrap();
     if let Some(clients) = config.clients {
         init_clients(broad_caster, clients);
+    }
+    if let Some(listen_ip_address) = config.listen_ip_address {
+        broad_caster.listen_ip_address = listen_ip_address;
+    }
+    if let Some(listen_port) = config.listen_port {
+        broad_caster.listen_port = listen_port;
+    }
+    if let Some(send_port) = config.send_port {
+        broad_caster.send_port = send_port;
     }
 }
 

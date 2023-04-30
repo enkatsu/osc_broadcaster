@@ -3,5 +3,8 @@
     {"address": "127.0.0.1", "port": 3331},
     {"address": "127.0.0.1", "port": 3332},
     {"address": "127.0.0.1", "port": 3333}
-  ]
+  ],
+  "listen_ip_address": "127.0.0.1",
+  "listen_port": 32001,
+  "send_port": 32002
 }
