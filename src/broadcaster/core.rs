@@ -165,3 +165,44 @@ impl BroadCaster {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::net::IpAddr;
+    use std::str::FromStr;
+    use crate::broadcaster::BroadCaster;
+
+    #[test]
+    fn test_push_send_address() {
+        let mut broadcaster = BroadCaster::new();
+        assert_eq!(0, broadcaster.send_addresses.len());
+        let result = broadcaster.push_send_address(
+            IpAddr::from_str("127.0.0.1").unwrap(),
+            33333
+        );
+        assert!(result);
+        assert_eq!(1, broadcaster.send_addresses.len());
+        assert_eq!("127.0.0.1", broadcaster.send_addresses[0].ip().to_string());
+        assert_eq!(33333, broadcaster.send_addresses[0].port());
+    }
+
+    #[test]
+    fn test_remove_send_address() {
+        let mut broadcaster = BroadCaster::new();
+        assert_eq!(0, broadcaster.send_addresses.len());
+        let push_result = broadcaster.push_send_address(
+            IpAddr::from_str("127.0.0.1").unwrap(),
+            33333
+        );
+        assert!(push_result);
+        assert_eq!(1, broadcaster.send_addresses.len());
+        assert_eq!("127.0.0.1", broadcaster.send_addresses[0].ip().to_string());
+        assert_eq!(33333, broadcaster.send_addresses[0].port());
+        let remove_result = broadcaster.remove_send_address(
+            IpAddr::from_str("127.0.0.1").unwrap(),
+            33333
+        );
+        assert!(remove_result);
+        assert_eq!(0, broadcaster.send_addresses.len());
+    }
+}
