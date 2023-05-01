@@ -10,7 +10,7 @@ However, this will result in all client applications using port 12000 when runni
 The client applications will not work properly.
 Therefore, it is necessary to set the destination port number of osc_broadcaster for each client application.
 The way to do this is to specify the port number as the first argument of the OSC message when connecting.
-For example, /server/connect 12001, /server/connect 12002, /server/connect 12003.
+For example, `/server/connect 12001`, `/server/connect 12002` and `/server/connect 12003`.
 This will cause osc_broadcaster to broadcast messages to different port numbers for each client application.
 Examples of concrete client application implementations are presented in [client_examples](./client_examples).
 
