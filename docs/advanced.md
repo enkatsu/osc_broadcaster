@@ -29,10 +29,10 @@ Examples of specific configuration files are located in the repository.
 
 ### Sample setting files
 
-- [JSON](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.json)
-- [YAML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.yaml)
-- [TOML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.toml)
-- [CSV](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.csv)
+- [JSON](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/setting_examples/settings.json)
+- [YAML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/setting_examples/settings.yaml)
+- [TOML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/setting_examples/settings.toml)
+- [CSV](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/setting_examples/settings.csv)
 
 #### Example of JSON format configuration file
 
