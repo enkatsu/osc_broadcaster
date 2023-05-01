@@ -6,7 +6,7 @@ oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/
 2. [Usage](#usage)
 3. [Client examples](#client-examples)
 4. [Advanced](#advanced)
-   1. Multiple client applications locally
+   1. Run multiple client applications on a single computer
 
 # Installation
 
@@ -61,8 +61,8 @@ You can register as a target client from the distribution by sending an OSC mess
 
 Additionally, it is possible to specify the port number to broadcast for each IP address by appending the port number to the first argument of the OSC message.
 For example, a message like `/server/connect 12001`.
-This feature is useful when connecting multiple client applications locally.
-Details are explained on this page.
+This feature is useful when running multiple client applications on a single computer.
+Details are explained [here](./advanced).
 
 ![](image/figure/1.png)
 ![](image/figure/2.png)
@@ -81,7 +81,7 @@ You can exclude a target client from the distribution by sending an OSC message 
 If the port number to broadcast is specified for each IP address,
 the port number must be added to the first argument of the OSC message.
 For example, a message like `/server/disconnect 12001`.
-Details are explained on that page.
+Details are explained [here](./advanced).
 
 ![](image/figure/5.png)
 ![](image/figure/8.png)
