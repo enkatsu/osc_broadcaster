@@ -2,3 +2,4 @@ remote_theme: pages-themes/minimal@v0.2.0
 plugins:
   - jekyll-remote-theme
 logo: image/logo.png
+description: osc_broadcaster is an OSC broadcast server that can be started from the command line.
