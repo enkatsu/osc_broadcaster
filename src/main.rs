@@ -9,8 +9,8 @@ mod init;
     author = env!("CARGO_PKG_AUTHORS"),
     version = env!("CARGO_PKG_VERSION"),
     about = env!("CARGO_PKG_DESCRIPTION"),
-    long_about = None)
-]
+    long_about = env!("CARGO_PKG_HOMEPAGE"),
+)]
 struct Args {
     /// Specify the listen IP address of the broadcast server
     #[clap(short = 'i', long, default_value = "0.0.0.0")]
