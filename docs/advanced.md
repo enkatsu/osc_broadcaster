@@ -19,7 +19,8 @@ Examples of concrete client application implementations are presented in [client
 osc_broadcaster can be changed from options, some settings can be changed.
 However, there are times when you may want to share these settings for development or distribute the settings along with the source code.
 So I will show you how to set up the initial settings using a configuration file.
-You can read the configuration file and start it with the `-f` option. The configuration file supports JSON, YAML, TOML, and CSV (CSV supports only limited configuration items).
+You can read the configuration file and start it with the `-f` option.
+The configuration file supports JSON, YAML, TOML, and CSV (CSV supports only limited configuration items).
 Examples of specific configuration files are located in the repository.
 
 ```shell
