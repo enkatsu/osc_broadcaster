@@ -49,7 +49,7 @@ Examples of specific configuration files are located in the repository.
 }
 ```
 
-## Example of startup command
+### Example of startup command
 
 ```shell
 osc_broadcaster -f settings.json
