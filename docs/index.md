@@ -4,8 +4,8 @@ oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/
 
 1. [Installation](#installation)
 2. [Usage](#usage)
-3. [Client examples](#client-examples)
-4. [Advanced](#advanced)
+3. [Client examples](./client_examples)
+4. [Advanced](./advanced)
    1. Run multiple client applications on a single computer
    2. Load initial setting file
 
@@ -86,12 +86,3 @@ Details are explained [here](./advanced).
 
 ![](image/figure/5.png)
 ![](image/figure/8.png)
-
-# Client examples
-
-Some example implementations of client applications are presented on the [client examples page](./client_examples).
-
-
-# Advanced
-
-More advanced uses of this application can be found [here](./advanced).
