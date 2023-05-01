@@ -22,6 +22,13 @@ So I will show you how to set up the initial settings using a configuration file
 You can read the configuration file and start it with the `-f` option. The configuration file supports JSON, YAML, TOML, and CSV (CSV supports only limited configuration items).
 Examples of specific configuration files are located in the repository.
 
+```shell
+osc_broadcaster -f settings.json
+osc_broadcaster -f settings.yaml
+osc_broadcaster -f settings.toml
+osc_broadcaster -f settings.csv
+```
+
 - [JSON](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.json)
 - [YAML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.yaml)
 - [TOML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.toml)
