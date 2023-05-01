@@ -180,4 +180,11 @@ mod tests {
         assert_eq!("127.0.0.1", broad_caster.send_addresses[1].ip().to_string());
         assert_eq!("127.0.0.1", broad_caster.send_addresses[2].ip().to_string());
     }
+
+    #[test]
+    #[should_panic]
+    fn test_init_cant_load_file() {
+        let mut broad_caster = BroadCaster::new();
+        init_from_file(&mut broad_caster, &PathBuf::from_str("./docs/setting_examples/not_settings.csv").unwrap());
+    }
 }
