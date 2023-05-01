@@ -109,3 +109,75 @@ pub fn init_from_file(broad_caster: &mut BroadCaster, path: &PathBuf) {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::path::PathBuf;
+    use std::str::FromStr;
+    use crate::broadcaster::BroadCaster;
+    use crate::init::init_from_file;
+
+    #[test]
+    fn test_init_from_json_file() {
+        let mut broad_caster = BroadCaster::new();
+        init_from_file(&mut broad_caster, &PathBuf::from_str("./docs/setting_examples/settings.json").unwrap());
+        assert_eq!("127.0.0.1", broad_caster.listen_ip_address);
+        assert_eq!(32001, broad_caster.listen_port);
+        assert_eq!(32002, broad_caster.send_port);
+        assert_eq!(3, broad_caster.send_addresses.len());
+        assert_eq!(3331, broad_caster.send_addresses[0].port());
+        assert_eq!(3332, broad_caster.send_addresses[1].port());
+        assert_eq!(3333, broad_caster.send_addresses[2].port());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[0].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[1].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[2].ip().to_string());
+    }
+
+    #[test]
+    fn test_init_from_yaml_file() {
+        let mut broad_caster = BroadCaster::new();
+        init_from_file(&mut broad_caster, &PathBuf::from_str("./docs/setting_examples/settings.yaml").unwrap());
+        assert_eq!("127.0.0.1", broad_caster.listen_ip_address);
+        assert_eq!(32001, broad_caster.listen_port);
+        assert_eq!(32002, broad_caster.send_port);
+        assert_eq!(3, broad_caster.send_addresses.len());
+        assert_eq!(3331, broad_caster.send_addresses[0].port());
+        assert_eq!(3332, broad_caster.send_addresses[1].port());
+        assert_eq!(3333, broad_caster.send_addresses[2].port());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[0].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[1].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[2].ip().to_string());
+    }
+
+    #[test]
+    fn test_init_from_toml_file() {
+        let mut broad_caster = BroadCaster::new();
+        init_from_file(&mut broad_caster, &PathBuf::from_str("./docs/setting_examples/settings.toml").unwrap());
+        assert_eq!("127.0.0.1", broad_caster.listen_ip_address);
+        assert_eq!(32001, broad_caster.listen_port);
+        assert_eq!(32002, broad_caster.send_port);
+        assert_eq!(3, broad_caster.send_addresses.len());
+        assert_eq!(3331, broad_caster.send_addresses[0].port());
+        assert_eq!(3332, broad_caster.send_addresses[1].port());
+        assert_eq!(3333, broad_caster.send_addresses[2].port());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[0].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[1].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[2].ip().to_string());
+    }
+
+    #[test]
+    fn test_init_from_csv_file() {
+        let mut broad_caster = BroadCaster::new();
+        init_from_file(&mut broad_caster, &PathBuf::from_str("./docs/setting_examples/settings.csv").unwrap());
+        assert_eq!("0.0.0.0", broad_caster.listen_ip_address);
+        assert_eq!(32000, broad_caster.listen_port);
+        assert_eq!(12000, broad_caster.send_port);
+        assert_eq!(3, broad_caster.send_addresses.len());
+        assert_eq!(3331, broad_caster.send_addresses[0].port());
+        assert_eq!(3332, broad_caster.send_addresses[1].port());
+        assert_eq!(3333, broad_caster.send_addresses[2].port());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[0].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[1].ip().to_string());
+        assert_eq!("127.0.0.1", broad_caster.send_addresses[2].ip().to_string());
+    }
+}
