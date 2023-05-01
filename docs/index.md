@@ -2,6 +2,12 @@ An OSC (Open Sound Control) broadcast server that can be started from the comman
 It is a Rust implementation of [oscP5broadcaster](https://sojamo.de/libraries/oscP5/examples/oscP5broadcaster/oscP5broadcaster.pde).
 oscP5broadcaster is a sample application of [oscP5](https://sojamo.de/libraries/oscP5/).
 
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Client examples](#client-examples)
+4. [Advanced](#advanced)
+   1. Multiple client applications locally
+
 # Installation
 
 ## Install using Homebrew
@@ -82,4 +88,9 @@ Details are explained on that page.
 
 # Client examples
 
-[Client examples](./client_examples)
+Some example implementations of client applications are presented on the [client examples page](./client_examples).
+
+
+# Advanced
+
+More advanced uses of this application can be found [here](./advanced).
