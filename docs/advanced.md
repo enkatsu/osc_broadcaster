@@ -21,7 +21,32 @@ However, there are times when you may want to share these settings for developme
 So I will show you how to set up the initial settings using a configuration file.
 You can read the configuration file and start it with the `-f` option.
 The configuration file supports JSON, YAML, TOML, and CSV (CSV supports only limited configuration items).
+All configuration file formats have a similar data structure.
 Examples of specific configuration files are located in the repository.
+
+### Sample setting files
+
+- [JSON](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.json)
+- [YAML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.yaml)
+- [TOML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.toml)
+- [CSV](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.csv)
+
+#### Example of JSON format configuration file
+
+```json
+{
+  "clients": [
+    {"address": "127.0.0.1", "port": 3331},
+    {"address": "127.0.0.1", "port": 3332},
+    {"address": "127.0.0.1", "port": 3333}
+  ],
+  "listen_ip_address": "127.0.0.1",
+  "listen_port": 32001,
+  "send_port": 32002
+}
+```
+
+## Example of startup command
 
 ```shell
 osc_broadcaster -f settings.json
@@ -29,8 +54,3 @@ osc_broadcaster -f settings.yaml
 osc_broadcaster -f settings.toml
 osc_broadcaster -f settings.csv
 ```
-
-- [JSON](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.json)
-- [YAML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.yaml)
-- [TOML](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.toml)
-- [CSV](https://github.com/enkatsu/osc_broadcaster/blob/main/docs/sample.csv)
