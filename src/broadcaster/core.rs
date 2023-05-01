@@ -171,6 +171,17 @@ mod tests {
     use std::net::IpAddr;
     use std::str::FromStr;
     use crate::broadcaster::BroadCaster;
+    use crate::broadcaster::core::{DEFAULT_IP_ADDRESS, DEFAULT_PORT, DEFAULT_SEND_PORT};
+
+    #[test]
+    fn test_new() {
+        let broadcaster = BroadCaster::new();
+        assert_eq!(0, broadcaster.send_addresses.len());
+        assert_eq!(DEFAULT_IP_ADDRESS, broadcaster.listen_ip_address);
+        assert_eq!(DEFAULT_PORT, broadcaster.listen_port);
+        assert_eq!(DEFAULT_SEND_PORT, broadcaster.send_port);
+        assert!(broadcaster.socket.is_none());
+    }
 
     #[test]
     fn test_push_send_address() {
