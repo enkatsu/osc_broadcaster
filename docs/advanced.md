@@ -12,6 +12,8 @@ Therefore, it is necessary to set the destination port number of osc_broadcaster
 The way to do this is to specify the port number as the first argument of the OSC message when connecting.
 For example, `/server/connect 12001`, `/server/connect 12002` and `/server/connect 12003`.
 This will cause osc_broadcaster to broadcast messages to different port numbers for each client application.
+However, in such a case, the port number must be specified as the first argument of the OSC message even when the disconnection.
+For example, `/server/disconnect 12001`, `/server/disconnect 12002` and `/server/disconnect 12003`.
 Examples of concrete client application implementations are presented in [client_examples](./client_examples).
 
 ## Load initial setting file
