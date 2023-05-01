@@ -53,6 +53,11 @@ OPTIONS:
 
 You can register as a target client from the distribution by sending an OSC message to osc_broadcast with the address pattern `/server/connect` from your client application.
 
+Additionally, it is possible to specify the port number to broadcast for each IP address by appending the port number to the first argument of the OSC message.
+For example, a message like `/server/connect 12001`.
+This feature is useful when connecting multiple client applications locally.
+Details are explained on this page.
+
 ![](image/figure/1.png)
 ![](image/figure/2.png)
 
@@ -66,6 +71,11 @@ When the destination clients are registered with osc_broadcast, sending an OSC m
 ## Disconnect
 
 You can exclude a target client from the distribution by sending an OSC message to "osc_broadcast" with the address pattern `/server/disconnect` from your client application.
+
+If the port number to broadcast is specified for each IP address,
+the port number must be added to the first argument of the OSC message.
+For example, a message like `/server/disconnect 12001`.
+Details are explained on that page.
 
 ![](image/figure/5.png)
 ![](image/figure/8.png)
