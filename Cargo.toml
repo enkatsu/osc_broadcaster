@@ -1,6 +1,6 @@
 [package]
 name = "osc_broadcaster"
-version = "0.2.1"
+version = "0.2.2"
 description = "OSC(Open Sound Control) broad cast server"
 license = "MIT"
 readme = "README.md"
